@@ -40,7 +40,7 @@
 #include "log.h"
 
 
-// ������debug��
+// 定义debug参数
 #else
 #define LOG_DBG(x)
 #define log_error(x)	perror(x)
@@ -48,11 +48,14 @@
 
 #include "event.h"
 
+
+// 用于计算什么?
 #ifndef howmany
 #define        howmany(x, y)   (((x)+((y)-1))/(y))
 #endif
 
 /* Prototypes */
+// 原型模式?  事件添加?
 void event_add_post(struct event *);
 
 TAILQ_HEAD (timeout_list, event) timequeue;

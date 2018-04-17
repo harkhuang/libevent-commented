@@ -282,7 +282,7 @@ struct {								\
  */
 
 
-// 定义双端队列
+// 定义双端队列  type 是客户自定义的数据结构体
 #define TAILQ_HEAD(name, type)						\
 struct name {								\
 	struct type *tqh_first;	/* first element */			\
@@ -295,6 +295,8 @@ struct name {								\
 
 
 // 表示尾插的队列作为成员的定义方式  type表示data的数据类型
+
+// 用于组装结构体
 #define TAILQ_ENTRY(type)						\
 struct {								\
 	struct type *tqe_next;	/* next element */			\

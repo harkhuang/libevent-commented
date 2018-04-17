@@ -1,10 +1,6 @@
 /*
  * Compile with:
  * cc -I/usr/local/include -o event-test event-test.c -L/usr/local/lib -levent
- * 
- * 
- * 不安装运行如下命令
- * cc -I.. -o event-test event-test.c -L.. -levent
  */
 
 #include <sys/types.h>
@@ -18,7 +14,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include <event.h>
+#include "event.h"
 
 void
 fifo_read(int fd, short event, void *arg)

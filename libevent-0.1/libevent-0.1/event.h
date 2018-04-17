@@ -43,53 +43,55 @@
 struct event {
   struct {struct event *tqe_next; struct event **tqe_prev;}  ev_read_next1;
 
-	TAILQ_ENTRY (event) ev_read_next; //ÉùÃ÷event½á¹¹Ìå Ë«¶Ë¶ÓÁÐµÄ¹Ø¼üÖ¸Õë  ¶ÓÁÐÊÇ´æÔÚÕ»ÖÐ
-	TAILQ_ENTRY (event) ev_write_next; //ÉùÃ÷event½á¹¹Ìå  Ë«¶Ë¶ÓÁÐ¹Ø¼üÖ¸Õë  Õ»ÖÐµÄË«¶Ë¶ÓÁÐÍ·
+	TAILQ_ENTRY (event) ev_read_next; //å£°æ˜Ževentç»“æž„ä½“ åŒç«¯é˜Ÿåˆ—çš„å…³é”®æŒ‡é’ˆ  é˜Ÿåˆ—æ˜¯å­˜åœ¨æ ˆä¸­
+	TAILQ_ENTRY (event) ev_write_next; //å£°æ˜Ževentç»“æž„ä½“  åŒç«¯é˜Ÿåˆ—å…³é”®æŒ‡é’ˆ  æ ˆä¸­çš„åŒç«¯é˜Ÿåˆ—å¤´
 	TAILQ_ENTRY (event) ev_timeout_next;
 	TAILQ_ENTRY (event) ev_add_next;
 
-	int ev_fd;   //Ã¿¸öevent °ó¶¨Ò»¸öÎÄ¼þÃèÊö·û
-	short ev_events;  // ±íÊ¾event¸öÊýå? ±àºÅå?
+	int ev_fd;    //æ¯ä¸ªevent ç»‘å®šä¸€ä¸ªæ–‡ä»¶æè¿°ç¬¦
+	short ev_events; // è¡¨ç¤ºeventä¸ªæ•°? ç¼–å·?
 
-	struct timeval ev_timeout;  // ÄÚºËÊ±¼äÖµ
-
-  // Ò»¿Å»Øµ÷º¯Êý  °üº¬ÁËÈý¸ö²ÎÊý  ÆäÖÐÒ»¸öÊÇ´«ÈëµÄ²ûÊö  Á½¸ö´©³öµÄ²ÎÊýå?å?
+	struct timeval ev_timeout;   // å†…æ ¸æ—¶é—´å€¼
 	void (*ev_callback)(int, short, void *arg); 
-	void *ev_arg; // »Øµ÷º¯ÊýµÄ²ÎÊý
+  // ä¸€é¢—å›žè°ƒå‡½æ•°  åŒ…å«äº†ä¸‰ä¸ªå‚æ•°  å…¶ä¸­ä¸€ä¸ªæ˜¯ä¼ å…¥çš„é˜è¿°  ä¸¤ä¸ªç©¿å‡ºçš„å‚æ•°??	void (*ev_callback)(int, short, void *arg); 
+	void *ev_arg;// å›žè°ƒå‡½æ•°çš„å‚æ•°
 
-	int ev_flags; // ±êÖ¾Î»å?  ²»¶®ÒâÍ¼å?
+	int ev_flags;// æ ‡å¿—ä½?  ä¸æ‡‚æ„å›¾?
 };
 
-#define TIMEOUT_DEFAULT	5   // Ä¬ÈÏ»Øµ÷º¯Êý5ÃëºóÖ´ÐÐ
+#define TIMEOUT_DEFAULT	5    // é»˜è®¤å›žè°ƒå‡½æ•°5ç§’åŽæ‰§è¡Œ
 
-void event_init(void);// ³õÊ¼»¯ÊÂ¼þå?  ³õÊ¼»¯ÊÂ¼þ¶ÓÁÐå?ÉêÇë¿Õ¼ä ·ÅÈëÄÚ´æå?
+void event_init(void);// åˆå§‹åŒ–äº‹ä»¶?  åˆå§‹åŒ–äº‹ä»¶é˜Ÿåˆ—?ç”³è¯·ç©ºé—´ æ”¾å…¥å†…å­˜?
 
-int event_dispatch(void); //Ê±¼ä·Ö·¢å?´¦Àíå? ÕâÀïÊÇÖ´ÐÐ»Øµ÷º¯Êýå?ºÍ´¦Àí·½Ê½
-
-int timeout_next(struct timeval *); //å?å?å?
-void timeout_process(void);//å?å?
+int event_dispatch(void);//æ—¶é—´åˆ†å‘?å¤„ç†? è¿™é‡Œæ˜¯æ‰§è¡Œå›žè°ƒå‡½æ•°?å’Œå¤„ç†æ–¹å¼
 
 
-// Ìí¼ÓÊÂ¼þ
+int timeout_next(struct timeval *); //??
+void timeout_process(void);//??
+
+
+// æ·»åŠ äº‹ä»¶
 #define timeout_add(ev, tv)		event_add(ev, tv)
 
 
-// ÉèÖÃÊ±¼ä
+// è®¾ç½®äº‹ä»¶
 #define timeout_set(ev, cb, arg)	event_set(ev, -1, 0, cb, arg)
 
-// É¾³ýÊÂ¼þ
+// åˆ é™¤äº‹ä»¶
 #define timeout_del(ev)			event_del(ev)
 
-// ÊÂ¼þÎ´¾ö
+// æœªå†³äº‹ä»¶
 #define timeout_pending(ev, tv)		event_pending(ev, EV_TIMEOUT, tv)
 
-// ÊÂ¼þ³õÊ¼»¯
+// åˆå§‹åŒ–
 #define timeout_initalized(ev)		((ev)->ev_flags & EVLIST_INIT)
 
 void event_set(struct event *, int, short, void (*)(int, short, void *), void *);
 void event_add(struct event *, struct timeval *);
 void event_del(struct event *);
 
+
+// è®¾ç½®å¤„å†³æ—¶é—´?æ¶ˆè€—æ—¶é—´?
 int event_pending(struct event *, short, struct timeval *);
 
 #define event_initalized(ev)		((ev)->ev_flags & EVLIST_INIT)
