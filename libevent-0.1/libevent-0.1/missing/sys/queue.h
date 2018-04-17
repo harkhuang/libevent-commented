@@ -89,6 +89,8 @@
 /*
  * Singly-linked List definitions.
  */
+
+// 展开后是一个完整的定义
 #define SLIST_HEAD(name, type)						\
 struct name {								\
 	struct type *slh_first;	/* first element */			\
@@ -96,7 +98,9 @@ struct name {								\
  
 #define	SLIST_HEAD_INITIALIZER(head)					\
 	{ NULL }
- 
+
+
+// 主要用于结构体内部声明一个变量  一个无名结构体作为结构体成员
 #define SLIST_ENTRY(type)						\
 struct {								\
 	struct type *sle_next;	/* next element */			\
