@@ -278,8 +278,11 @@ struct {								\
 } while (0)
 
 /*
- * Tail queue definitions.
+ * Tail queue definitions.  
  */
+
+
+// 定义双端队列
 #define TAILQ_HEAD(name, type)						\
 struct name {								\
 	struct type *tqh_first;	/* first element */			\
