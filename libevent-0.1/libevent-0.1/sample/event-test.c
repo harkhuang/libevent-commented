@@ -46,6 +46,9 @@ fifo_read(int fd, short event, void *arg)
 	fprintf(stdout, "Read: %s\n", buf);
 }
 
+
+
+// 监听一个管道文件,即使读取内容到标准输出
 int
 main (int argc, char **argv)
 {

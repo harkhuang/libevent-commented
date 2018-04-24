@@ -67,9 +67,12 @@ int event_dispatch(void);//时间分发?处理? 这里是执行回调函数?和�
 
 
 int timeout_next(struct timeval *); //??
-void timeout_process(void);//??
+void timeout_process(void);//?? 超时处理程序
 
 
+
+
+// 为函数改名   调用更清晰
 // 添加事件
 #define timeout_add(ev, tv)		event_add(ev, tv)
 
